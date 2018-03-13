@@ -66,7 +66,7 @@ This command will upgrade the exiting chart and wait until the deployment is com
 
 The chart can be uninstalled/deleted as follows:
 
-```console
+```bash
 helm delete --purge vsts-agent
 ```
 
