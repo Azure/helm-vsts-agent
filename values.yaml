@@ -1,0 +1,15 @@
+replicas: 3
+
+image:
+  repository: microsoft/vsts-agent
+  tag: latest
+  pullPolicy: Always
+
+resources:
+  limits:
+    cpu: 4
+    memory: 8Gi
+  requests:
+    cpu: 4
+    memory: 8Gi
+  disk: "50Gi"

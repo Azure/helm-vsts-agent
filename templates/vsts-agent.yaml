@@ -1,0 +1,68 @@
+apiVersion: apps/v1beta2
+kind: StatefulSet
+metadata:
+  name: {{ .Chart.Name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    chart: {{ .Chart.Name }}
+    version: {{ .Chart.Version }}
+spec:
+  replicas: {{ .Values.replicas }}
+  serviceName: {{ .Chart.Name }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+          - name: VSTS_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: vsts-agent-secret
+                key: vstsToken
+         {{- with .Values }}
+          - name: VSTS_ACCOUNT
+            value: {{ .vstsAccount }}
+          - name: VSTS_POOL
+            value: {{ .vstsPool | default "kubernetes-vsts-agents" }}
+          - name: VSTS_AGENT
+            value: {{ .vstsAgentName | default "$HOSTNAME" }}
+          - name: VSTS_WORK
+            value: {{ .vstsWorkspace | default "/workspace" }}
+          {{- end }}
+        volumeMounts:
+          - name: docker-socket
+            mountPath: /var/run/docker.sock
+            readOnly: false
+          - name: workspace
+            mountPath: /workspace
+        resources:
+          limits:
+            memory: {{ .Values.resources.limits.mem | quote }}
+            cpu: {{ .Values.resources.limits.cpu | quote }}
+          requests:
+            memory: {{ .Values.resources.requests.mem | quote }}
+            cpu: {{ .Values.resources.requests.cpu | quote }}
+      volumes:
+        - name: docker-socket
+          hostPath:
+            path: /var/run/docker.sock
+{{ if .Values.image.imagePullSecret }}
+      imagePullSecrets:
+        - name: {{ .Values.image.imagePullSecret }}
+{{ end }}
+  volumeClaimTemplates:
+  - metadata:
+      name: workspace
+    spec:
+      accessModes: [ ReadWriteOnce ]
+      resources:
+        requests:
+          storage: {{ .Values.resources.disk | default "50Gi" | quote }}
