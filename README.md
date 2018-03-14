@@ -2,6 +2,8 @@
 
 This chart bootstraps a [Visual Studio Team Services agent pool](https://github.com/Microsoft/vsts-agent) on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
+[![Build Status](https://travis-ci.org/Azure/helm-vsts-agent.svg?branch=master)](https://travis-ci.org/Azure/helm-vsts-agent)
+
 ## Prerequisites
  - Kubernetes 1.8+ or newer
 
