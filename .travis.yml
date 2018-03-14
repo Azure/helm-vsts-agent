@@ -22,4 +22,5 @@ before_script:
     done
 
 script:
+- helm lint .
 - helm template .
