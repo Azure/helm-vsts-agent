@@ -2,8 +2,8 @@ language: generic
 
 env:
   global:
-    - KUBECTL_VERSION="v1.9.3"
-    - HELM_VERSION="v2.8.1"
+    - KUBECTL_VERSION="v1.9.6"
+    - HELM_VERSION="v2.8.2"
 
 install:
   - wget https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl -O /tmp/kubectl
