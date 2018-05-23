@@ -42,7 +42,7 @@ spec:
             mountPath: /var/run/docker.sock
             readOnly: false
           - name: workspace
-            mountPath: /workspace
+            mountPath: {{ .Values.vstsWorkspace | default "/workspace" }}
         resources:
           limits:
             memory: {{ .Values.resources.limits.mem | quote }}
