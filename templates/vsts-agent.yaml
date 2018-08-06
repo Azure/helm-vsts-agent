@@ -45,10 +45,10 @@ spec:
             mountPath: {{ .Values.vstsWorkspace | default "/workspace" }}
         resources:
           limits:
-            memory: {{ .Values.resources.limits.mem | quote }}
+            memory: {{ .Values.resources.limits.memory | quote }}
             cpu: {{ .Values.resources.limits.cpu | quote }}
           requests:
-            memory: {{ .Values.resources.requests.mem | quote }}
+            memory: {{ .Values.resources.requests.memory | quote }}
             cpu: {{ .Values.resources.requests.cpu | quote }}
       volumes:
         - name: docker-socket
