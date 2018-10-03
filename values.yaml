@@ -1,4 +1,4 @@
-replicas: 1
+replicas: 3
 
 image:
   repository: microsoft/vsts-agent
@@ -13,4 +13,4 @@ resources:
     cpu: 4
     memory: 8Gi
   disk: "50Gi"
-  storageclass: "managed-standard"
+  storageclass: "default"
