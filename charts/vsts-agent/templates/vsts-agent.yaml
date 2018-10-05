@@ -37,14 +37,16 @@ spec:
           - name: VSTS_WORK
             value: {{ .vstsWorkspace | default "/workspace" }}
          {{- end }}
-         {{- range $key, $value :=  .Values.extraEnv }}
+         {{- range $key, $value := .Values.extraEnv }}
           - name: {{ $key }}
             value: {{ $value | quote }}
          {{- end }}
         volumeMounts:
           - name: workspace
             mountPath: {{ .Values.vstsWorkspace | default "/workspace" }}
+{{- if .Values.volumeMounts }}
 {{ toYaml .Values.volumeMounts | indent 10 }}
+{{ end }}
         resources:
           limits:
             memory: {{ .Values.resources.limits.memory | quote }}
@@ -52,7 +54,7 @@ spec:
           requests:
             memory: {{ .Values.resources.requests.memory | quote }}
             cpu: {{ .Values.resources.requests.cpu | quote }}
-     {{ if .Values.cleanRun }}
+     {{- if .Values.cleanRun }}
         livenessProbe:
           exec:
             command:
@@ -61,10 +63,12 @@ spec:
             - "! ls /vsts/agent/_diag | grep Worker || pgrep Agent.Worker"
           initialDelaySeconds: 120
           periodSeconds: 5
-     {{ end }}
-{{ toYaml .Values.extra-containers | indent 6 }}
+     {{- end }}
+{{ if .Values.extraContainers }}
+{{ toYaml .Values.extraContainers | indent 6 }}
+{{ end }}
       volumes:
-{{ toYaml .Values.volumes | indent 6 }}
+{{ toYaml .Values.volumes | indent 8 }}
 {{ if .Values.image.imagePullSecret }}
       imagePullSecrets:
         - name: {{ .Values.image.imagePullSecret }}

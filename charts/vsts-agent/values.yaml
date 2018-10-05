@@ -27,6 +27,6 @@ volumes:
   hostPath:
     path: /var/run/docker.sock
 
-extraEnv:
+extraEnv: {}
 
-extraContainers:
+extraContainers: []
