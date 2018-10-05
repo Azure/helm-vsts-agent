@@ -54,6 +54,16 @@ spec:
           requests:
             memory: {{ .Values.resources.requests.memory | quote }}
             cpu: {{ .Values.resources.requests.cpu | quote }}
+     {{ if .Values.cleanRun }}
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - "! ls /vsts/agent/_diag | grep Worker || pgrep Agent.Worker"
+          initialDelaySeconds: 120
+          periodSeconds: 5
+     {{ end }}
       volumes:
         - name: docker-socket
           hostPath:

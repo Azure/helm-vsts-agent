@@ -15,4 +15,6 @@ resources:
   disk: "50Gi"
   storageclass: "default"
 
+cleanRun: false
+
 extraEnv:

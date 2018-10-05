@@ -26,6 +26,7 @@ The following tables lists the configurable parameters of the `vsts-agent` chart
 | `vstsAgentName`                   | VSTS agent name                       | `$HOSTNAME`                                               |
 | `vstsWorkspace`                   | VSTS agent workspace                  | `/workspace`                                              |
 | `extraEnv`                   | Extra environment variables on the vsts-agent container                  | `nil`                                              |
+| `cleanRun`                   | Kill and restart vsts-agent container on completion of a build (completely resets the environment)                  | `false`                                              |
 
 ## Configure your VSTS instance
 
