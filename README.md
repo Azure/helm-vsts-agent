@@ -25,6 +25,7 @@ The following tables lists the configurable parameters of the `vsts-agent` chart
 | `vstsPool`                        | VSTS agent pool name                  | `kubernetes-vsts-agents`                                  |
 | `vstsAgentName`                   | VSTS agent name                       | `$HOSTNAME`                                               |
 | `vstsWorkspace`                   | VSTS agent workspace                  | `/workspace`                                              |
+| `extraEnv`                   | Extra environment variables on the vsts-agent container                  | `nil`                                              |
 
 ## Configure your VSTS instance
 

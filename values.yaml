@@ -14,3 +14,5 @@ resources:
     memory: 8Gi
   disk: "50Gi"
   storageclass: "default"
+
+extraEnv:
