@@ -62,6 +62,7 @@ spec:
           initialDelaySeconds: 120
           periodSeconds: 5
      {{ end }}
+{{ toYaml .Values.extra-containers | indent 6 }}
       volumes:
 {{ toYaml .Values.volumes | indent 6 }}
 {{ if .Values.image.imagePullSecret }}
