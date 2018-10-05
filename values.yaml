@@ -17,4 +17,14 @@ resources:
 
 cleanRun: false
 
+volumeMounts:
+- name: docker-socket
+  mountPath: /var/run/docker.sock
+  readOnly: false
+
+volumes:
+- name: docker-socket
+  hostPath:
+    path: /var/run/docker.sock
+
 extraEnv:

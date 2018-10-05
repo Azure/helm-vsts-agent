@@ -42,11 +42,9 @@ spec:
             value: {{ $value | quote }}
          {{- end }}
         volumeMounts:
-          - name: docker-socket
-            mountPath: /var/run/docker.sock
-            readOnly: false
           - name: workspace
             mountPath: {{ .Values.vstsWorkspace | default "/workspace" }}
+{{ toYaml .Values.volumeMounts | indent 10 }}
         resources:
           limits:
             memory: {{ .Values.resources.limits.memory | quote }}
@@ -65,9 +63,7 @@ spec:
           periodSeconds: 5
      {{ end }}
       volumes:
-        - name: docker-socket
-          hostPath:
-            path: /var/run/docker.sock
+{{ toYaml .Values.volumes | indent 6 }}
 {{ if .Values.image.imagePullSecret }}
       imagePullSecrets:
         - name: {{ .Values.image.imagePullSecret }}
