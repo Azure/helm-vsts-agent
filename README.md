@@ -19,6 +19,7 @@ The following tables lists the configurable parameters of the `vsts-agent` chart
 | `image.pullPolicy`                | Image pull policy                     | `Always`                                                  |
 | `replicas`                        | Number of vsts-agent instaces started | `3`                                                       |
 | `resources.disk`                  | Size of the disk attached to the agent| `50Gi`                                                    |
+| `resources.storageclass`          | Specify storageclass used in kubernetes| `default`                                                    |
 | `vstsAccount`                     | VSTS account name                     | `nil` (must be provided during installation)              |
 | `vstsToken`                       | VSTS personal access token            | `nil` (must be provided during installation)              |
 | `vstsPool`                        | VSTS agent pool name                  | `kubernetes-vsts-agents`                                  |
