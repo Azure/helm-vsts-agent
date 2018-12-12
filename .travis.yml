@@ -22,5 +22,5 @@ before_script:
     done
 
 script:
-- helm lint .
-- helm template .
+- helm lint charts/vsts-agent
+- helm template charts/vsts-agent

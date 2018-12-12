@@ -36,13 +36,17 @@ spec:
             value: {{ .vstsAgentName | default "$HOSTNAME" }}
           - name: VSTS_WORK
             value: {{ .vstsWorkspace | default "/workspace" }}
-          {{- end }}
+         {{- end }}
+         {{- range $key, $value := .Values.extraEnv }}
+          - name: {{ $key }}
+            value: {{ $value | quote }}
+         {{- end }}
         volumeMounts:
-          - name: docker-socket
-            mountPath: /var/run/docker.sock
-            readOnly: false
           - name: workspace
             mountPath: {{ .Values.vstsWorkspace | default "/workspace" }}
+{{- if .Values.volumeMounts }}
+{{ toYaml .Values.volumeMounts | indent 10 }}
+{{ end }}
         resources:
           limits:
             memory: {{ .Values.resources.limits.memory | quote }}
@@ -50,10 +54,21 @@ spec:
           requests:
             memory: {{ .Values.resources.requests.memory | quote }}
             cpu: {{ .Values.resources.requests.cpu | quote }}
+     {{- if .Values.cleanRun }}
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - "! ls /vsts/agent/_diag | grep Worker || pgrep Agent.Worker"
+          initialDelaySeconds: 120
+          periodSeconds: 5
+     {{- end }}
+{{ if .Values.extraContainers }}
+{{ toYaml .Values.extraContainers | indent 6 }}
+{{ end }}
       volumes:
-        - name: docker-socket
-          hostPath:
-            path: /var/run/docker.sock
+{{ toYaml .Values.volumes | indent 8 }}
 {{ if .Values.image.imagePullSecret }}
       imagePullSecrets:
         - name: {{ .Values.image.imagePullSecret }}
