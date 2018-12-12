@@ -1,6 +1,6 @@
 ## Introduction
 
-[![Build Status](https://travis-ci.org/Azure/helm-vsts-agent.svg?branch=master)](https://travis-ci.org/Azure/helm-vsts-agent)
+[![Build Status](https://dev.azure.com/azure/helm-vsts-agent/_apis/build/status/Azure.helm-vsts-agent?branchName=master)](https://dev.azure.com/azure/helm-vsts-agent/_build/latest?definitionId=12?branchName=master)
 
 This chart bootstraps a [Visual Studio Team Services agent pool](https://github.com/Microsoft/vsts-agent) on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
