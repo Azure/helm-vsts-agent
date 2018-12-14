@@ -1,0 +1,29 @@
+variables:
+  KUBECTL_VERSION: v1.9.6
+  HELM_VERSION: v2.8.2
+  HELM_PATH: $(System.DefaultWorkingDirectory)/helm
+
+steps:
+- task: HelmInstaller@0
+  inputs:
+    helmVersion: $(HELM_VERSION)
+    kubectlVersion: $(KUBECTL_VERSION)
+    installKubectl: true
+  displayName: 'Install helm'
+
+- script: |
+    helm --version    
+    helm init --client-only
+    helm repo add stable https://kubernetes-charts.storage.googleapis.com
+    for chart in $(find . -name 'requirements.yaml'); do
+      helm dep build $(dirname ${chart})
+    done
+  displayName: 'Initialize helm'
+
+- script: |
+    helm lint charts/vsts-agent
+  displayName: 'Helm lint'
+
+- script: |  
+    helm template charts/vsts-agent
+  displayName: 'Helm template'
