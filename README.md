@@ -1,3 +1,7 @@
+## Notice 
+
+No active development anymore.
+
 ## Introduction
 
 [![Build Status](https://dev.azure.com/azure/helm-vsts-agent/_apis/build/status/Azure.helm-vsts-agent?branchName=master)](https://dev.azure.com/azure/helm-vsts-agent/_build/latest?definitionId=12?branchName=master)
